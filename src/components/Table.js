@@ -1,8 +1,19 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { delExpenses, editExpenses } from '../redux/actions';
 
 class Table extends Component {
+  handleRemove = (id) => {
+    const { dispatch } = this.props;
+    dispatch(delExpenses(id));
+  };
+
+  handleEdit = (id) => {
+    const { dispatch } = this.props;
+    dispatch(editExpenses(id));
+  };
+
   render() {
     const { expenses } = this.props;
     return (
@@ -36,8 +47,20 @@ class Table extends Component {
               </td>
               <td>Real</td>
               <td>
-                <button>Editar</button>
-                <button>Excluir</button>
+                <button
+                  onClick={ () => this.handleEdit(expense.id) }
+                  data-testid="edit-btn"
+                >
+                  Editar despesa
+
+                </button>
+                <button
+                  onClick={ () => this.handleRemove(expense.id) }
+                  data-testid="delete-btn"
+                >
+                  Excluir
+
+                </button>
               </td>
             </tr>
           ))}
@@ -48,13 +71,13 @@ class Table extends Component {
 }
 
 Table.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.shape({
-    map: PropTypes.func.isRequired,
-  })).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (globalState) => ({
   expenses: globalState.wallet.expenses,
+  idToEdit: globalState.wallet.idToEdit,
 });
 
 export default connect(mapStateToProps)(Table);

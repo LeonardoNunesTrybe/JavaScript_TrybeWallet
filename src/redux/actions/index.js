@@ -2,6 +2,8 @@ export const ADD_EMAIL = 'ADD_EMAIL';
 export const REQUEST_SUCCESSFUL = 'REQUEST_SUCCESSFUL';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
 export const DEL_EXPENSES = 'DEL_EXPENSES';
+export const EDIT_EXPENSES = 'EDIT_EXPENSES';
+export const SAVE_EDIT = 'SAVE_EDIT';
 
 export const addEmail = (email) => ({
   type: ADD_EMAIL,
@@ -46,7 +48,17 @@ export function fetchExpenses(expenses) {
   };
 }
 
-export const delExpenses = (expenses) => ({
+export const delExpenses = (id) => ({
   type: DEL_EXPENSES,
-  payload: expenses,
+  payload: id,
+});
+
+export const editExpenses = (id) => ({
+  type: EDIT_EXPENSES,
+  payload: id,
+});
+
+export const saveEdit = (expense) => ({
+  type: SAVE_EDIT,
+  payload: expense,
 });
