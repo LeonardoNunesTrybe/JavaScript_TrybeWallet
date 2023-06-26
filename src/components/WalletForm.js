@@ -51,14 +51,18 @@ class WalletForm extends Component {
 
   handleEdit = () => {
     const { dispatch, idToEdit, expenses } = this.props;
+    const { value, description, currency, method, tag } = this.state;
 
-    const expensesToEdit = expenses.find((expense) => expense.id === idToEdit);
-
-    const expense = {
-      ...expensesToEdit,
-      ...this.state,
+    const newExpense = {
+      id: idToEdit,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: expenses[idToEdit].exchangeRates,
     };
-    dispatch(saveEdit(expense));
+    dispatch(saveEdit(expenses, newExpense));
 
     this.reset();
   };

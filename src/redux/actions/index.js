@@ -58,7 +58,9 @@ export const editExpenses = (id) => ({
   payload: id,
 });
 
-export const saveEdit = (expense) => ({
-  type: SAVE_EDIT,
-  payload: expense,
-});
+export const saveEdit = (expenses, expense) => {
+  expenses.splice(expense.id, 1, expense);
+  return ({
+    type: SAVE_EDIT,
+  });
+};
